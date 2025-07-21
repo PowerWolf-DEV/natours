@@ -18,6 +18,7 @@ import viewRouter from './routes/viewRoutes.js';
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 
+// start express app
 const app = express();
 
 const dirname = import.meta.dirname;
