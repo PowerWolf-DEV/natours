@@ -130,7 +130,6 @@ tourSchema.index({ startLocation: '2dsphere' });
 // Document MIDDLEWARE: runs before .save() and .create() (** but not before .insertMany() & .findByIdAndUpdate())
 tourSchema.pre('save', function (next) {
   // this - current document
-  // console.log(this);
   this.slug = this.name.toLowerCase().replaceAll(' ', '-');
   next();
 });
@@ -180,11 +179,10 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post(/^find/, function (docs, next) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  // console.log(docs);
-  next();
-});
+// tourSchema.post(/^find/, function (docs, next) {
+//   console.log(`Query took ${Date.now() - this.start} milliseconds`);
+//   next();
+// });
 
 // Aggregation MIDDLEWARE
 // tourSchema.pre('aggregate', function (next) {

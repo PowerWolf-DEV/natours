@@ -20,7 +20,6 @@ export const getOverview = async (req, res, next) => {
 
 export const getTour = async (req, res, next) => {
   try {
-    // console.log(req.params.slug);
     // 1. Get the data for the requested tour (including reviews and guides)
     const tour = await Tour.findOne({ slug: req.params.slug }).populate({
       path: 'reviews',
@@ -72,7 +71,6 @@ export const getAccount = (req, res, next) => {
 
 export const updateUserData = async (req, res, next) => {
   try {
-    // console.log(req.body);
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       {
@@ -101,9 +99,7 @@ export const getMyTours = async (req, res, next) => {
 
     // 2. Find tours with the returned IDs
     const tourIds = bookings.map(el => el.tour);
-    // console.log(tourIds);
     const tours = await Tour.find({ _id: { $in: tourIds } });
-    // console.log(tours);
 
     res.status(200).render('overview', {
       title: 'My Tours',

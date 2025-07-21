@@ -7,14 +7,12 @@ const handleCastErrorDB = err => {
 
 const handleDuplicateFieldsDB = err => {
   const [key, value] = Object.entries(err.keyValue)[0];
-  // console.log(key, value);
   const message = `Duplicate value: ${value} for the field: ${key}. Please use another value!`;
   return new AppError(message, 400);
 };
 
 const handleValidationErrorDB = err => {
   const errors = Object.values(err.errors).map(err => err.message);
-  // console.log(errors);
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
@@ -33,7 +31,7 @@ const sendErrorDev = (err, req, res) => {
     });
   }
   // RENDERED WEBSITE
-  // console.error('ERROR 💥', err);
+  console.error('ERROR 💥', err);
   return res.status(err.statusCode).render('error', {
     title: 'Something went wrong!',
     message: err.message,
@@ -61,7 +59,6 @@ const sendErrorProd = (err, req, res) => {
   }
   // RENDERED WEBSITE
   if (err.isOperational) {
-    // console.log(err);
     return res.status(err.statusCode).render('error', {
       title: 'Something went wrong!',
       message: err.message,
@@ -92,8 +89,6 @@ const globalErrorHandler = (err, req, res, next) => {
     if (error.name === 'JsonWebTokenError') error = handleJWTError();
     if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
 
-    // console.log(err.message);
-    // console.log(error.message);
     sendErrorProd(error, req, res);
   }
 };

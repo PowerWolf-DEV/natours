@@ -11,13 +11,14 @@
     "start": "node --env-file=config.env --watch-path=./ server.js",
     "start-test": "node --env-file=config.env --watch server.js",
     "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
-    "build": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
+    "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
   },
   "author": "PowerWolf-DEV",
   "license": "ISC",
   "description": "Learning node, express and mongoDB",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "core-js": "^3.43.0",
     "express": "^4.21.2",

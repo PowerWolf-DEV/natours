@@ -1,8 +1,8 @@
 import { showAlert } from './alerts.js';
 
 export const login = async (email, password) => {
-  const url = 'http://127.0.0.1:3000/api/v1/users/login';
-  // console.log(email, password);
+  // const url = 'http://127.0.0.1:3000/api/v1/users/login';
+  const url = '/api/v1/users/login';
 
   try {
     const response = await fetch(url, {
@@ -33,11 +33,11 @@ export const login = async (email, password) => {
 
 export const logout = async () => {
   try {
-    const url = 'http://127.0.0.1:3000/api/v1/users/logout';
+    // const url = 'http://127.0.0.1:3000/api/v1/users/logout';
+    const url = '/api/v1/users/logout';
     const response = await fetch(url);
 
     const data = await response.json();
-    // console.log(data);
 
     if (data.status === 'fail') {
       throw new Error(`Error message: ${data.message}`);

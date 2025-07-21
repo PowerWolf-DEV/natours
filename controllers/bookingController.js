@@ -11,7 +11,6 @@ export const getCheckoutSession = async (req, res, next) => {
   try {
     // 1. get the currently booked tour
     const tour = await Tour.findById(req.params.tourId);
-    // console.log(tour);
 
     // 2. create checkout session
     const session = await stripe.checkout.sessions.create({

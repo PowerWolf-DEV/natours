@@ -58,7 +58,6 @@ const filterObj = (obj, ...allowedFields) => {
   Object.keys(obj).forEach(element => {
     if (allowedFields.includes(element)) newObj[element] = obj[element];
   });
-  // console.log(newObj);
   return newObj;
 };
 
@@ -69,9 +68,6 @@ export const getMe = (req, res, next) => {
 
 export const updateMe = async (req, res, next) => {
   try {
-    // console.log(req.file);
-    // console.log(req.body);
-
     // 1. Create error if user POSTs password data
     if (req.body.password || req.body.passwordConfirm) {
       return next(new AppError('This route is not for password updates. Please use /updateMyPassword!', 400));

@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
 import AppError from './../utils/appError.js';
-// import sendEmail from './../utils/email.js';
 import Email from './../utils/email.js';
 
 const signToken = id => {
@@ -45,18 +44,14 @@ export const signup = async (req, res, next) => {
       email: req.body.email,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
-      // role: req.body.role,
     });
 
-    // const url = 'http://127.0.0.1:3000/me';
     const url = `${req.protocol}://${req.get('host')}/me`;
-    // console.log(url);
 
     await new Email(newUser, url).sendWelcome();
 
     createSendToken(newUser, 201, res);
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
@@ -83,10 +78,6 @@ export const login = async (req, res, next) => {
 };
 
 export const loguout = (req, res) => {
-  // res.cookie('jwt', 'loggedout', {
-  //   expires: new Date(Date.now() + 10 * 2000),
-  //   httpOnly: true,
-  // });
   res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
 };
@@ -100,14 +91,12 @@ export const protect = async (req, res, next) => {
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
     }
-    // console.log(token);
+
     if (!token) {
-      // return res.redirect('/'); // ** fix the issue of logging out when the user is on the /me account settings
       return next(new AppError('You are not logged in! Please log in to get access.', 401));
     }
     // 2. Verification of the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(decoded);
     // 3. Check if user still exists
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
@@ -194,16 +183,13 @@ export const forgotPassword = async (req, res, next) => {
         status: 'success',
         message: 'Token sent to email!',
       });
-      // next();
     } catch (err) {
-      console.log(err);
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false });
 
       return next(new AppError('There was an error sending email. Try again later!', 500));
     }
-    // next();
   } catch (err) {
     next(err);
   }
@@ -214,7 +200,6 @@ export const resetPassword = async (req, res, next) => {
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
 
-    // console.log(user);
     // 2. If token has not expired and there is a user - set new password
     if (!user) {
       return next(new AppError('Token is invalid or has expired', 400));
@@ -231,7 +216,6 @@ export const resetPassword = async (req, res, next) => {
     // 4. Log the user in, send JWT token
     createSendToken(user, 200, res);
   } catch (err) {
-    // console.log(err);
     next(err);
   }
 };
@@ -240,7 +224,6 @@ export const updatePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword, newPasswordConfirm } = req.body;
     // 1. Get user from collection
-    // const user = await User.findOne({ email }).select('+password');
     const user = await User.findById(req.user.id).select('+password');
 
     // 2. Check if posted current password is correct
