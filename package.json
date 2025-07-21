@@ -1,0 +1,44 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "main": "app.js",
+  "targets": {
+    "main": false
+  },
+  "type": "module",
+  "scripts": {
+    "start:prod": "SET NODE_ENV=production&node --env-file=config.env --watch-path=./ server.js",
+    "start": "node --env-file=config.env --watch-path=./ server.js",
+    "start-test": "node --env-file=config.env --watch server.js",
+    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
+    "build": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
+  },
+  "author": "PowerWolf-DEV",
+  "license": "ISC",
+  "description": "Learning node, express and mongoDB",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "core-js": "^3.43.0",
+    "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "html-to-text": "^9.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.1",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.1",
+    "nodemailer": "^7.0.3",
+    "pug": "^3.0.3",
+    "regenerator-runtime": "^0.14.1",
+    "sharp": "^0.34.2",
+    "stripe": "^18.3.0",
+    "validator": "^13.15.15",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}
