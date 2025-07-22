@@ -8,9 +8,9 @@
   "type": "module",
   "scripts": {
     "start:prod": "SET NODE_ENV=production&node --env-file=config.env --watch-path=./ server.js",
-    "start": "node --env-file=config.env --watch-path=./ server.js",
+    "start:dev": "node --env-file=config.env --watch-path=./ server.js",
+    "start": "node server.js",
     "start-test": "node --env-file=config.env --watch server.js",
-    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js/bundled",
     "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
   },
   "author": "PowerWolf-DEV",
@@ -41,5 +41,8 @@
   },
   "devDependencies": {
     "parcel": "^2.15.4"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
