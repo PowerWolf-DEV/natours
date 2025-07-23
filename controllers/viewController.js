@@ -3,6 +3,19 @@ import User from './../models/userModel.js';
 import Booking from './../models/bookingModel.js';
 import AppError from './../utils/appError.js';
 
+export const alerts = (req, res, next) => {
+  try {
+    const { alert } = req.query;
+    if (alert === 'booking')
+      res.locals.alert =
+        'Your booking was successful! Please, check your email for a confirmation. If your booking does not show up here immediatly, please come back later.';
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getOverview = async (req, res, next) => {
   try {
     // 1. get tour data from collection

@@ -1,12 +1,13 @@
 // Polifilling for the parcel (for build command)
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime.js';
 
 import { login, logout } from './login.js';
 import { signup } from './signup.js';
 import { displayMap } from './leaflet.js';
 import { updateSettings } from './updateSettings.js';
 import { bookTour } from './stripe.js';
+import { showAlert } from './alerts.js';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -91,3 +92,7 @@ if (bookBtn) {
     bookTour(tourId);
   });
 }
+
+// Alert message for the user
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alertMessage) showAlert('success', alertMessage, 20);
