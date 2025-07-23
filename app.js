@@ -17,6 +17,8 @@ import reviewRouter from './routes/reviewRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
 import viewRouter from './routes/viewRoutes.js';
 
+import * as bookingController from './controllers/bookingController.js';
+
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 
@@ -74,6 +76,8 @@ const limiter = rateLimit({
   validate: { xForwardedForHeader: false },
 });
 app.use('/api', limiter);
+
+app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
 
 console.log(`MODE: ${process.env.NODE_ENV}`);
 
