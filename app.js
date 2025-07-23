@@ -9,6 +9,7 @@ import xss from 'xss-clean';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
+import cors from 'cors';
 
 import tourRouter from './routes/tourRoutes.js';
 import userRouter from './routes/userRoutes.js';
@@ -36,6 +37,14 @@ app.use(express.static(path.join(dirname, 'public')));
 app.set('query parser', 'extended');
 
 // 1. Global Middlewares
+// Implementing CORS (cross-origin resource sharing)
+app.use(cors());
+
+app.options('*', cors());
+
+// allow complex requests(delete, patch etc.) on just a specific route(example)
+// app.options('/api/v1/tours/:id', cors());
+
 // Set security HTTP headers
 // Sets all of the defaults, but overrides 'script-src' & 'img-src'
 app.use(
